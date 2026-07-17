@@ -1,6 +1,6 @@
 # ronkit
 
-Ronnie's public Claude Code plugin marketplace — skills, slash commands, agents, and hooks, installable in two commands.
+Ronnie's Claude Code plugin marketplace — skills, slash commands, agents, and hooks, installable in two commands. Currently private; installation requires access to this repo.
 
 ## Installation
 
