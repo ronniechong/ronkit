@@ -15,8 +15,8 @@ Plugins here are organized by **category**, not one-plugin-per-skill: each plugi
 
 | Plugin | Version | Description | Install |
 |---|---|---|---|
-| `test` | 0.1.0 | Skills for testing and validating the ronkit marketplace itself | `/plugin install test@ronkit` |
-| `documents` | 0.1.0 | Skills for managing project documentation | `/plugin install documents@ronkit` |
+| `test` | 0.1.1 | Skills for testing and validating the ronkit marketplace itself | `/plugin install test@ronkit` |
+| `documents` | 0.1.1 | Skills for managing project documentation | `/plugin install documents@ronkit` |
 
 ### test
 

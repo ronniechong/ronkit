@@ -1,0 +1,53 @@
+name: Validate marketplace
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install Claude Code CLI
+        run: npm install -g @anthropic-ai/claude-code
+
+      - name: Validate marketplace.json
+        run: claude plugin validate . --strict
+
+      - name: Validate each plugin manifest
+        run: |
+          set -e
+          for dir in plugins/*/; do
+            echo "Validating ${dir%/}"
+            claude plugin validate "${dir%/}" --strict
+          done
+
+      - name: Check plugin.json <-> marketplace.json version consistency
+        run: |
+          set -e
+          for dir in plugins/*/; do
+            plugin_json="${dir%/}/.claude-plugin/plugin.json"
+            name=$(jq -r '.name' "$plugin_json")
+            plugin_version=$(jq -r '.version' "$plugin_json")
+            marketplace_version=$(jq -r --arg n "$name" '.plugins[] | select(.name == $n) | .version' .claude-plugin/marketplace.json)
+
+            if [ -z "$marketplace_version" ] || [ "$marketplace_version" = "null" ]; then
+              echo "::error file=$plugin_json::Plugin '$name' has no matching entry in .claude-plugin/marketplace.json"
+              exit 1
+            fi
+
+            if [ "$plugin_version" != "$marketplace_version" ]; then
+              echo "::error file=$plugin_json::Version mismatch for '$name': plugin.json has $plugin_version, marketplace.json has $marketplace_version"
+              exit 1
+            fi
+
+            echo "OK: $name $plugin_version"
+          done

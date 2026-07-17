@@ -45,7 +45,7 @@ When adding a new skill, put it in the category it fits (adding a `skills/<name>
 - Plugin names: lowercase kebab-case, one per **category** (see above) — not one per skill. Semantic versioning in both plugin.json and the marketplace entry — **update both together** on every release.
 - `metadata.pluginRoot` is `./plugins`; plugin `source` values are relative paths under it.
 - Plugins are copied to a cache on install. **Never reference files outside a plugin's own directory** (no `../shared`). Duplicate or symlink instead.
-- All JSON must validate. Run validation before any commit that touches marketplace.json or a plugin.json.
+- All JSON must validate. Run `claude plugin validate . --strict` (and per-plugin) before any commit that touches marketplace.json or a plugin.json — CI (`.github/workflows/validate.yml`) re-runs this and the version-consistency check on every PR/push to `main`, but don't rely on CI to catch it first.
 - Skills load from a plugin's `skills/` directory. Each skill's SKILL.md frontmatter `description` is the trigger mechanism — write it as a routing rule: what the skill does, when to use it, concrete trigger phrases. Vague descriptions are bugs.
 - README plugin table must stay in sync with marketplace.json entries.
 
@@ -61,7 +61,7 @@ Semver rules:
 - **minor** (0.1.0 → 0.2.0): new skill/command/agent/hook, new capability, non-breaking behavior change
 - **major** (0.2.0 → 1.0.0): breaking change — renamed/removed component, changed command interface, changed skill trigger contract
 
-Before finishing any task that touched a plugin, verify: `git diff` shows both version fields changed and they match. A plugin change without a version bump is an incomplete task. Changes that touch only the repo root (README, CI, this file) do not require plugin bumps; a marketplace-level change may bump `metadata.version` instead.
+Before finishing any task that touched a plugin, verify: `git diff` shows both version fields changed and they match. A plugin change without a version bump is an incomplete task. Changes that touch only the repo root (README, CI, this file) do not require plugin bumps; a marketplace-level change may bump `metadata.version` instead. CI enforces the plugin.json/marketplace.json match on every PR and fails the build on mismatch — treat that as a backstop, not the first line of defense.
 
 ## README requirements
 
@@ -109,6 +109,7 @@ When adding or changing a plugin, updating the README catalog row and usage sect
 
 ```json
 {
+  "$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
   "name": "example-plugin",
   "version": "0.1.0",
   "description": "One-line description",
@@ -141,7 +142,7 @@ The living project document is `~/www/work-docs/marketplace-ronkit.md`, not a fi
 
 ## Conventions
 
-- Conventional commits from day one (`feat:`, `fix:`, `docs:`, `chore:`) — Release Please depends on them at M4.
+- Conventional commits from day one (`feat:`, `fix:`, `docs:`, `chore:`). Versioning is manual (see "Version bumping" above) — Release Please was considered and dropped at M4 (private, single-contributor repo; not worth the added moving parts at this scale).
 - Keep plugins organized by category (see "Plugin organization" above); add skills to the fitting category plugin rather than creating a new plugin per skill.
 - Document every plugin in its own README section: what it does, install command, example usage per skill.
 - When uncertain about schema details, check the official docs: https://code.claude.com/docs/en/plugin-marketplaces — do not guess fields.

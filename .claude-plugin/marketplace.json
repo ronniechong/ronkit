@@ -11,14 +11,14 @@
       "name": "test",
       "source": "./plugins/test",
       "description": "Skills for testing and validating the ronkit marketplace and its plugins",
-      "version": "0.1.0",
+      "version": "0.1.1",
       "keywords": ["testing", "smoke-test"]
     },
     {
       "name": "documents",
       "source": "./plugins/documents",
       "description": "Skills for managing project documentation — planning docs, session handoffs, and related workflows",
-      "version": "0.1.0",
+      "version": "0.1.1",
       "keywords": ["documentation", "context-management", "milestones"]
     }
   ]
