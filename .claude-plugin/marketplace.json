@@ -3,7 +3,7 @@
   "owner": { "name": "Ronnie" },
   "metadata": {
     "description": "Ronnie's Claude Code plugins — skills, commands, agents, and hooks",
-    "version": "0.1.0",
+    "version": "0.2.0",
     "pluginRoot": "./plugins"
   },
   "plugins": [
@@ -13,6 +13,13 @@
       "description": "Skeleton plugin used to validate the ronkit marketplace install flow",
       "version": "0.1.0",
       "keywords": ["skeleton", "example"]
+    },
+    {
+      "name": "resume-later",
+      "source": "./plugins/resume-later",
+      "description": "Session-handoff workflow: keeps a project's living planning doc current and confirms it's safe to clear context between milestones",
+      "version": "0.1.0",
+      "keywords": ["documentation", "context-management", "milestones"]
     }
   ]
 }

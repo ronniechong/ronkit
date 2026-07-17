@@ -1,0 +1,8 @@
+{
+  "name": "resume-later",
+  "version": "0.1.0",
+  "description": "Session-handoff workflow: keeps a project's living planning doc current and confirms it's safe to clear context between milestones",
+  "author": { "name": "Ronnie" },
+  "repository": "https://github.com/ronniechong/ronkit",
+  "license": "MIT"
+}
