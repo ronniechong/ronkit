@@ -1,0 +1,137 @@
+# ronkit — Claude Code Plugin Marketplace
+
+## What this project is
+
+**ronkit** is Ronnie's public Claude Code plugin marketplace: a GitHub monorepo distributing skills, slash commands, agents, and hooks. The marketplace is an *index*, not a host — `.claude-plugin/marketplace.json` at the repo root registers plugins that live under `plugins/`.
+
+Install flow for end users:
+
+```bash
+/plugin marketplace add <github-user>/ronkit
+/plugin install <plugin-name>@ronkit
+```
+
+## Repository layout
+
+```
+ronkit/
+├── .claude-plugin/
+│   └── marketplace.json        # registry — REQUIRED at repo root, name: "ronkit"
+├── plugins/
+│   └── <plugin-name>/
+│       ├── .claude-plugin/plugin.json
+│       ├── skills/<skill-name>/SKILL.md
+│       ├── commands/<command>.md      # optional
+│       ├── agents/<agent>.md          # optional
+│       ├── hooks/hooks.json           # optional
+│       └── scripts/                   # optional
+├── .github/workflows/validate.yml
+└── README.md
+```
+
+## Hard rules
+
+- Marketplace name is `ronkit`. Never change it — it's part of every user's install string.
+- Plugin names: lowercase kebab-case. Semantic versioning in both plugin.json and the marketplace entry — **update both together** on every release.
+- `metadata.pluginRoot` is `./plugins`; plugin `source` values are relative paths under it.
+- Plugins are copied to a cache on install. **Never reference files outside a plugin's own directory** (no `../shared`). Duplicate or symlink instead.
+- All JSON must validate. Run validation before any commit that touches marketplace.json or a plugin.json.
+- Skills load from a plugin's `skills/` directory. Each skill's SKILL.md frontmatter `description` is the trigger mechanism — write it as a routing rule: what the skill does, when to use it, concrete trigger phrases. Vague descriptions are bugs.
+- README plugin table must stay in sync with marketplace.json entries.
+
+## Version bumping — MANDATORY on every change
+
+Any change to a plugin's contents (skills, commands, agents, hooks, scripts, or its plugin.json) MUST bump that plugin's version in the **same commit**, in **both** places:
+
+1. `plugins/<name>/.claude-plugin/plugin.json` → `version`
+2. `.claude-plugin/marketplace.json` → the matching plugin entry's `version`
+
+Semver rules:
+- **patch** (0.1.0 → 0.1.1): fixes, wording tweaks, doc updates inside the plugin
+- **minor** (0.1.0 → 0.2.0): new skill/command/agent/hook, new capability, non-breaking behavior change
+- **major** (0.2.0 → 1.0.0): breaking change — renamed/removed component, changed command interface, changed skill trigger contract
+
+Before finishing any task that touched a plugin, verify: `git diff` shows both version fields changed and they match. A plugin change without a version bump is an incomplete task. Changes that touch only the repo root (README, CI, this file) do not require plugin bumps; a marketplace-level change may bump `metadata.version` instead.
+
+## README requirements
+
+The repo README.md must always contain, and be kept current with every change:
+
+1. **What ronkit is** — one-paragraph description.
+2. **Installation** — exact commands:
+   ```bash
+   /plugin marketplace add <github-user>/ronkit
+   /plugin install <plugin-name>@ronkit
+   ```
+3. **Plugin catalog table** — one row per plugin: name, current version, description, install command. Versions here must match marketplace.json.
+4. **Per-plugin usage** — a section for each plugin: what it does, how to trigger its skills (example prompts), any slash commands with example invocations, configuration if any.
+5. **Updating** — how users update (`/plugin marketplace update ronkit`, reinstall the plugin).
+6. **Local development** — the dev/test loop from this file.
+
+When adding or changing a plugin, updating the README catalog row and usage section is part of the same task — not a follow-up.
+
+## Manifests
+
+### marketplace.json shape
+
+```json
+{
+  "name": "ronkit",
+  "owner": { "name": "Ronnie" },
+  "metadata": {
+    "description": "Skills and plugins for agentic workflows",
+    "version": "1.0.0",
+    "pluginRoot": "./plugins"
+  },
+  "plugins": [
+    {
+      "name": "example-plugin",
+      "source": "./plugins/example-plugin",
+      "description": "One-line description",
+      "version": "0.1.0",
+      "keywords": ["..."]
+    }
+  ]
+}
+```
+
+### plugin.json shape
+
+```json
+{
+  "name": "example-plugin",
+  "version": "0.1.0",
+  "description": "One-line description",
+  "author": { "name": "Ronnie" },
+  "repository": "https://github.com/<github-user>/ronkit",
+  "license": "MIT"
+}
+```
+
+Tiny skill-only plugins may use `"strict": false` in the marketplace entry and skip plugin.json — but default to having a plugin.json for consistency.
+
+## Dev & test loop
+
+From the repo root:
+
+```bash
+claude
+/plugin marketplace add .
+/plugin install <plugin-name>@ronkit
+# after changes:
+/plugin uninstall <plugin-name>@ronkit
+/plugin install <plugin-name>@ronkit
+```
+
+A plugin is not "done" until it installs cleanly from a fresh clone and its skill actually triggers on a representative prompt.
+
+## Project plan
+
+The living project document is `~/www/work-docs/marketplace-ronkit.md`, not a file in this repo — it holds milestones, status, and design decisions. Read it at the start of a session to know the current milestone. Work milestone by milestone; don't start a later milestone while the current one's exit criteria are unmet, unless explicitly told to. When a milestone completes or a design decision is made, update that work-docs file in the same session. This repo itself only carries a plain README — planning docs stay in work-docs, never duplicated in-repo.
+
+## Conventions
+
+- Conventional commits from day one (`feat:`, `fix:`, `docs:`, `chore:`) — Release Please depends on them at M4.
+- Keep plugins small and single-purpose; prefer a new plugin over bloating an existing one.
+- Document every plugin in its own README section: what it does, install command, example usage.
+- When uncertain about schema details, check the official docs: https://code.claude.com/docs/en/plugin-marketplaces — do not guess fields.
