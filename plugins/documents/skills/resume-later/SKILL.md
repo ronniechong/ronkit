@@ -1,6 +1,6 @@
 ---
 name: resume-later
-description: Use before ending a work session on a multi-milestone project — when the user says they're about to clear context, pause, wrap up, stop for now, or continue "tomorrow/next week/later" (or explicitly runs /resume-later), OR proactively when a milestone just completed or the session has grown long and a natural stopping point is near. Brings the project's living planning doc up to date and gets explicit user confirmation before it's safe to /clear. Not for routine mid-task status updates, and not a substitute for committing code.
+description: Use before ending a work session on a multi-milestone project — when the user says they're about to clear context, pause, wrap up, stop for now, or continue "tomorrow/next week/later" (or explicitly runs /documents:resume-later), OR proactively when a milestone just completed or the session has grown long and a natural stopping point is near. Brings the project's living planning doc up to date and gets explicit user confirmation before it's safe to /clear. Not for routine mid-task status updates, and not a substitute for committing code.
 ---
 
 # resume-later

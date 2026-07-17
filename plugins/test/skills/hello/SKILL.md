@@ -1,6 +1,6 @@
 ---
 name: hello
-description: Skeleton/smoke-test skill for validating the ronkit marketplace install flow. Trigger when the user runs "/hello" or explicitly asks to "test the ronkit marketplace" or "test the hello plugin". Not for general greetings.
+description: Skeleton/smoke-test skill for validating the ronkit marketplace install flow. Trigger when the user runs "/test:hello" or explicitly asks to "test the ronkit marketplace" or "test the hello plugin". Not for general greetings.
 ---
 
 # hello

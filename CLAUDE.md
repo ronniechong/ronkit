@@ -29,10 +29,20 @@ ronkit/
 └── README.md
 ```
 
+## Plugin organization: category, not one-per-skill
+
+Plugin skills are **always** namespaced as `/plugin-name:skill-name` on invocation — even with zero name collisions, there is no bare `/skill-name` and no alias mechanism for plugin-sourced skills (confirmed against docs, not configurable). Because of this, plugin names are **categories/scopes** that group related skills, not a 1:1 wrapper around a single skill — a plugin named the same as its only skill produces an awkward `/skill:skill` invocation.
+
+Current categories:
+- `test` — skills for testing/validating the marketplace itself (e.g. `hello`)
+- `documents` — skills for project documentation workflows (e.g. `resume-later`)
+
+When adding a new skill, put it in the category it fits (adding a `skills/<name>/` subdirectory to the existing plugin) rather than creating a new single-skill plugin. Only create a new category plugin when the skill doesn't fit any existing one.
+
 ## Hard rules
 
 - Marketplace name is `ronkit`. Never change it — it's part of every user's install string.
-- Plugin names: lowercase kebab-case. Semantic versioning in both plugin.json and the marketplace entry — **update both together** on every release.
+- Plugin names: lowercase kebab-case, one per **category** (see above) — not one per skill. Semantic versioning in both plugin.json and the marketplace entry — **update both together** on every release.
 - `metadata.pluginRoot` is `./plugins`; plugin `source` values are relative paths under it.
 - Plugins are copied to a cache on install. **Never reference files outside a plugin's own directory** (no `../shared`). Duplicate or symlink instead.
 - All JSON must validate. Run validation before any commit that touches marketplace.json or a plugin.json.
@@ -132,6 +142,6 @@ The living project document is `~/www/work-docs/marketplace-ronkit.md`, not a fi
 ## Conventions
 
 - Conventional commits from day one (`feat:`, `fix:`, `docs:`, `chore:`) — Release Please depends on them at M4.
-- Keep plugins small and single-purpose; prefer a new plugin over bloating an existing one.
-- Document every plugin in its own README section: what it does, install command, example usage.
+- Keep plugins organized by category (see "Plugin organization" above); add skills to the fitting category plugin rather than creating a new plugin per skill.
+- Document every plugin in its own README section: what it does, install command, example usage per skill.
 - When uncertain about schema details, check the official docs: https://code.claude.com/docs/en/plugin-marketplaces — do not guess fields.

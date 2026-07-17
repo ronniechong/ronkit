@@ -3,21 +3,21 @@
   "owner": { "name": "Ronnie" },
   "metadata": {
     "description": "Ronnie's Claude Code plugins — skills, commands, agents, and hooks",
-    "version": "0.2.0",
+    "version": "0.3.0",
     "pluginRoot": "./plugins"
   },
   "plugins": [
     {
-      "name": "hello",
-      "source": "./plugins/hello",
-      "description": "Skeleton plugin used to validate the ronkit marketplace install flow",
+      "name": "test",
+      "source": "./plugins/test",
+      "description": "Skills for testing and validating the ronkit marketplace and its plugins",
       "version": "0.1.0",
-      "keywords": ["skeleton", "example"]
+      "keywords": ["testing", "smoke-test"]
     },
     {
-      "name": "resume-later",
-      "source": "./plugins/resume-later",
-      "description": "Session-handoff workflow: keeps a project's living planning doc current and confirms it's safe to clear context between milestones",
+      "name": "documents",
+      "source": "./plugins/documents",
+      "description": "Skills for managing project documentation — planning docs, session handoffs, and related workflows",
       "version": "0.1.0",
       "keywords": ["documentation", "context-management", "milestones"]
     }

@@ -1,7 +1,7 @@
 {
-  "name": "hello",
+  "name": "test",
   "version": "0.1.0",
-  "description": "Skeleton plugin used to validate the ronkit marketplace install flow",
+  "description": "Skills for testing and validating the ronkit marketplace and its plugins",
   "author": { "name": "Ronnie" },
   "repository": "https://github.com/ronniechong/ronkit",
   "license": "MIT"

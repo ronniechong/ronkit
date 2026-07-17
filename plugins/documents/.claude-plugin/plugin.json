@@ -1,0 +1,8 @@
+{
+  "name": "documents",
+  "version": "0.1.0",
+  "description": "Skills for managing project documentation — planning docs, session handoffs, and related workflows",
+  "author": { "name": "Ronnie" },
+  "repository": "https://github.com/ronniechong/ronkit",
+  "license": "MIT"
+}
