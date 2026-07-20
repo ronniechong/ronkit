@@ -12,8 +12,8 @@ Run through this checklist every time, in order. Do not tell the user it is safe
 ## 1. Identify the living project doc
 
 Look for the project's planning/tracking doc. Common patterns, in rough order of likelihood:
-- A dedicated planning-doc directory alongside the project's other repos (e.g. `work-docs/<project>.md`)
-- `PROJECT.md`, `PLAN.md`, or `STATUS.md` at the repo root
+- A dedicated planning-doc directory alongside the project's other repos (e.g. `work-docs/<project>.md` or `work-docs/<project>/<project>.md`)
+- `PROJECT.md`, `PLAN.md`, or `STATUS.md` or `STATE.md` or `JOURNAL.md` at the repo root
 - A `docs/` directory with a status or roadmap file
 
 If more than one candidate exists, or none is obviously the right one, **ask the user which doc to update** — do not guess, and do not create a new one without asking.
