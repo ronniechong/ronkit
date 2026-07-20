@@ -16,7 +16,7 @@ Plugins here are organized by **category**, not one-plugin-per-skill: each plugi
 | Plugin | Version | Description | Install |
 |---|---|---|---|
 | `test` | 0.1.1 | Skills for testing and validating the ronkit marketplace itself | `/plugin install test@ronkit` |
-| `documents` | 0.1.1 | Skills for managing project documentation | `/plugin install documents@ronkit` |
+| `documents` | 0.2.0 | Skills for managing project documentation | `/plugin install documents@ronkit` |
 
 ### test
 
@@ -29,6 +29,10 @@ Plugins here are organized by **category**, not one-plugin-per-skill: each plugi
   - **Run it**: `/documents:resume-later` (type `/resume` and autocomplete will get you there)
 
   It finds your project's planning doc (asking if ambiguous), folds in anything undocumented (discoveries, decisions, milestone status), appends a concise History Log entry with a "what's next" note, flags any uncommitted git work, and asks for confirmation before it's safe to `/clear`.
+
+- **`scaffold-project`** — bootstraps the foundational files for a new project using a two-repo pattern: a public code-only repo plus a private working-docs repo (full-context `CLAUDE.md`, `STATE.md`, `JOURNAL.md`, milestones, ritual prompts), bridged by a gitignored `CLAUDE.local.md`. Trigger it: `/documents:scaffold-project`, or ask to "start/kickstart/bootstrap a new project". Always opens with a short setup interview (paths, purpose, stack) before generating anything, and screens answers for PII/sensitive details before writing the public files.
+
+- **`plan-project`** — turns a scaffolded project into an implementable plan through structured conversation: elaborates the idea, interrogates data sources and constraints, builds a risk register, defines milestones with decision gates, and populates the working-docs files as decisions land. Trigger it: `/documents:plan-project`, or ask to plan, elaborate, or pressure-test a project — typically run right after `scaffold-project`.
 
 ## Updating
 
