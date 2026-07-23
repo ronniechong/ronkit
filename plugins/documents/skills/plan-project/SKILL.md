@@ -43,12 +43,25 @@ each tied to the decision it unlocks. Draft the spike as milestone 01 with a
 findings-report structure (measured numbers → decision matrix → planning
 resolution) so results mechanically update the plan.
 
+If there are 3+ external dependencies to research, spawn one Explore/
+general-purpose agent per dependency in parallel (each digging into that
+dependency's rate limits, auth, licensing) rather than researching them one
+at a time — fold the returned findings into the UNKNOWN list yourself. For
+1-2 dependencies, a single direct lookup is faster than the spawn overhead.
+
 ### 3. Risk register
 Sweep for risks in layers: data/dependency unknowns, platform/hosting,
 security exposure, legal/licensing, scope traps, and the human factor
 (motivation, competing projects). Rank by damage. Every risk gets a
 mitigation, an owner milestone, or an explicit "accepted" with reason.
 Rerun a lighter sweep ("any oversights?") after major decisions land.
+
+For the first full sweep, the layers are independent lenses on the same
+project — consider running 2-4 of them (e.g. security exposure, legal/
+licensing, platform/hosting) as parallel agents against the elaborated idea
+and interrogation findings, then merge results into one ranked register
+yourself. Skip this for the lighter re-sweeps after decisions land; those
+are quick enough to do directly.
 
 ### 4. Milestones
 Slice into milestones with: goal, verifiable acceptance criteria (including
