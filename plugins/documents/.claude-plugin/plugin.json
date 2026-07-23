@@ -1,7 +1,7 @@
 {
   "$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
   "name": "documents",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Skills for managing project documentation — planning docs, session handoffs, and related workflows",
   "author": { "name": "Ronnie" },
   "repository": "https://github.com/ronniechong/ronkit",

@@ -16,7 +16,7 @@ Plugins here are organized by **category**, not one-plugin-per-skill: each plugi
 | Plugin | Version | Description | Install |
 |---|---|---|---|
 | `test` | 0.1.1 | Skills for testing and validating the ronkit marketplace itself | `/plugin install test@ronkit` |
-| `documents` | 0.2.0 | Skills for managing project documentation | `/plugin install documents@ronkit` |
+| `documents` | 0.3.0 | Skills for managing project documentation | `/plugin install documents@ronkit` |
 
 ### test
 
@@ -33,6 +33,8 @@ Plugins here are organized by **category**, not one-plugin-per-skill: each plugi
 - **`scaffold-project`** — bootstraps the foundational files for a new project using a two-repo pattern: a public code-only repo plus a private working-docs repo (full-context `CLAUDE.md`, `STATE.md`, `JOURNAL.md`, milestones, ritual prompts), bridged by a gitignored `CLAUDE.local.md`. Trigger it: `/documents:scaffold-project`, or ask to "start/kickstart/bootstrap a new project". Always opens with a short setup interview (paths, purpose, stack) before generating anything, and screens answers for PII/sensitive details before writing the public files.
 
 - **`plan-project`** — turns a scaffolded project into an implementable plan through structured conversation: elaborates the idea, interrogates data sources and constraints, builds a risk register, defines milestones with decision gates, and populates the working-docs files as decisions land. Trigger it: `/documents:plan-project`, or ask to plan, elaborate, or pressure-test a project — typically run right after `scaffold-project`.
+
+- **`review-ai`** — reviews a technical document (system design, architecture, data schema, API spec — not a PRD) for AI usage, and if found, checks it against AI governance categories (data flow, vendor risk, security/guardrails, incident response, evaluation, plus escalation items like disclosure and regulatory mapping), producing a prioritized report for an engineering lead. Trigger it: `/documents:review-ai`, or ask to review a doc for AI governance or check for governance gaps. Read-only — never edits the source doc, gives a short summary in chat, and offers to write the full report to a file next to the doc reviewed.
 
 ## Updating
 
