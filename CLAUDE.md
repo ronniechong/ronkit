@@ -136,12 +136,9 @@ claude
 
 A plugin is not "done" until it installs cleanly from a fresh clone and its skill actually triggers on a representative prompt.
 
-## Project plan
-
-The living project document is `~/www/work-docs/marketplace-ronkit.md`, not a file in this repo — it holds milestones, status, and design decisions. Read it at the start of a session to know the current milestone. Work milestone by milestone; don't start a later milestone while the current one's exit criteria are unmet, unless explicitly told to. When a milestone completes or a design decision is made, update that work-docs file in the same session. This repo itself only carries a plain README — planning docs stay in work-docs, never duplicated in-repo.
-
 ## Conventions
 
+- This repo only carries a plain README — no planning docs, milestone history, or feature specs live here; they're tracked privately outside the repo.
 - Conventional commits from day one (`feat:`, `fix:`, `docs:`, `chore:`). Versioning is manual (see "Version bumping" above) — Release Please was considered and dropped at M4 (private, single-contributor repo; not worth the added moving parts at this scale).
 - Keep plugins organized by category (see "Plugin organization" above); add skills to the fitting category plugin rather than creating a new plugin per skill.
 - Document every plugin in its own README section: what it does, install command, example usage per skill.
