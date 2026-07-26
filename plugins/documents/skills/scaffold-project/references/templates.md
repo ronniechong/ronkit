@@ -11,7 +11,7 @@ Table of contents:
 5. STATE.md
 6. JOURNAL.md
 7. Milestone template (with decision-gate table)
-8. prompts/spec-review.md (three rituals)
+8. prompts/spec-review.md (four rituals)
 9. ops/ starters
 
 ---
@@ -186,7 +186,9 @@ STATE.md, any Uncertain items from the kickstart conversation.]
 **Depends on:** …   **Blocks:** …
 
 ## Goal
-[2-3 sentences: what done looks like and why it matters.]
+[2-3 sentences: what done looks like and why it matters. Must stand alone as
+a deliverable — "at the end of this, we have X and could stop here" — not an
+internal step that only makes sense once a later milestone lands.]
 
 ## Acceptance criteria (definition of done)
 - [ ] [Verifiable, includes any soak/unattended-run requirements]
@@ -195,6 +197,13 @@ STATE.md, any Uncertain items from the kickstart conversation.]
 | Gate | Metric | Threshold | Resolution path |
 |---|---|---|---|
 [Commit thresholds BEFORE seeing data. Near-misses decided explicitly.]
+
+## Security review
+[Required whenever this milestone adds/changes external-facing surface,
+secrets, auth, or user input — list what was checked (new attack surface,
+secret handling, input validation, dependency risk). If none of that applies,
+say so explicitly: "Not applicable — no new surface/secrets/auth/input in
+this milestone." Never leave this section silently blank.]
 
 ## Tasks
 - [ ] …    [markers: [ ] todo, [x] done, [~] in progress, [!] blocked]
@@ -205,9 +214,28 @@ STATE.md, any Uncertain items from the kickstart conversation.]
 ## Risks raised at critique gate
 _(filled by the dedicated spec-review session — run prompts/spec-review.md
 against this file before any implementation)_
+
+## Milestone summary (for user review — fill in at sign-off time)
+[Plain-language recap of what was actually delivered, written for the user to
+skim and check against reality — not a copy of the task list. Include: what
+shipped, key decisions made or changed along the way, any deviations from the
+original spec and why, and where to look (files/commits/URLs) to verify it
+directly.]
+- [ ] …
+
+## Sign-off (required before Status: DONE)
+- [ ] Acceptance criteria verified against actual behaviour, not assumed
+- [ ] Decision gates resolved with real data (near-misses decided explicitly)
+- [ ] Security review complete, or explicitly marked N/A with reason
+- [ ] No open uncertainties, or each has an owner and a resolution path
+- [ ] User has reviewed the Milestone summary above and approved closing
+_(filled by the dedicated milestone sign-off session — run
+prompts/spec-review.md's sign-off ritual against this file before closing.
+The last box is the user's call, not Claude's — Status only moves to DONE
+after the user has actually said so.)_
 ```
 
-## 8. prompts/spec-review.md — the three rituals
+## 8. prompts/spec-review.md — the four rituals
 
 ```markdown
 # Spec Review Prompt (its OWN session — no implementation allowed)
@@ -225,6 +253,34 @@ Your ONLY job is to find problems with this spec. Do not implement. Check:
 Rank findings by severity. Zero findings across seven categories is
 suspicious; look harder. Finish by rewriting the milestone's "Risks raised
 at critique gate" section.
+
+---
+
+# Milestone Sign-off Prompt (its OWN session — run before Status: DONE)
+
+Read CLAUDE.md, STATE.md, and `milestones/NN-<name>.md`. Your job is to
+verify and validate this milestone is actually finished, not just to check
+that tasks are ticked. Check:
+1. Acceptance criteria — walk each one against real, observed behaviour
+   (run it, read the output, don't take a task checkbox's word for it).
+2. Decision gates — each resolved with real data against its pre-committed
+   threshold; any near-miss has an explicit decision recorded, not a fudge.
+3. Security review — complete and matches what actually shipped, or
+   explicitly N/A with a reason that still holds.
+4. Deliverable check — does this milestone stand on its own (could ship or
+   demo as-is), or did scope quietly leak into "finish next milestone first"?
+5. Uncertainties — anything flagged during the milestone is resolved, or
+   carries an owner and a resolution path in a later milestone.
+6. Regressions — spot-check that this milestone didn't silently break an
+   earlier milestone's acceptance criteria.
+Write the "Milestone summary" section — plain language, for the user to
+review, not a restated task list. Then present that summary to the user and
+ask them directly to review and sign off; do not check that final Sign-off
+box or move Status to DONE yourself. Fill in the rest of the "Sign-off"
+checklist with the result of each check above. Only mark **Status: DONE**
+once every box is genuinely checked AND the user has confirmed the summary —
+an unresolved item, or a summary the user hasn't actually seen, means the
+milestone stays open, however close it looks.
 
 ---
 

@@ -57,7 +57,7 @@ from the interview. Public tree: CLAUDE.md (sanitized), CLAUDE.local.md
 (bridge, gitignored), .gitignore, README stub, skeleton dirs. Private tree:
 CLAUDE.md (full context + two-repo section + scrub gate), STATE.md, JOURNAL.md
 (Session 1 entry), milestones/ (template + any known milestones as stubs),
-prompts/spec-review.md (three rituals), ops/ starters.
+prompts/spec-review.md (four rituals), ops/ starters.
 
 In Claude Code, write directly to the two paths given. If either directory is
 not accessible, generate the trees in a staging directory and tell the user

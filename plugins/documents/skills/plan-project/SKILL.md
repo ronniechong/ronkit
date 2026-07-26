@@ -64,11 +64,38 @@ yourself. Skip this for the lighter re-sweeps after decisions land; those
 are quick enough to do directly.
 
 ### 4. Milestones
-Slice into milestones with: goal, verifiable acceptance criteria (including
-soak/unattended requirements where relevant), decision-gate tables, explicit
-out-of-scope list, and an empty "Risks raised at critique gate" section. Each
-milestone spec is reviewed in a DEDICATED spec-review session (see the
+Slice into milestones that are each a **standalone deliverable** — something
+that works and is worth having on its own, not an internal checkpoint that
+only makes sense once a later milestone exists. If a candidate slice can't be
+described as "at the end of this, we have X and could stop here," it's not a
+milestone boundary yet — merge it into its neighbour or resequence.
+
+Each milestone spec has: goal, verifiable acceptance criteria (including
+soak/unattended requirements where relevant), decision-gate tables, a
+**security review item** whenever the milestone adds/changes external
+surface, secrets, auth, or user input (state it explicitly even when N/A, with
+a one-line reason — never a silent omission), explicit out-of-scope list, an
+empty "Risks raised at critique gate" section, and a **Sign-off** checklist
+that must be completed before Status can move to DONE (acceptance criteria
+verified against real behaviour, decision gates resolved with real data,
+security review complete or explicitly N/A, no open uncertainties). A
+milestone is not closed by checking off tasks — it closes when it's been
+verified and validated against its own acceptance criteria, AND the user has
+reviewed a plain-language **milestone summary** (what shipped, decisions
+made, deviations, where to look) and actually said so. Claude checks its own
+boxes; only the user checks the last one.
+
+Each milestone spec is reviewed in a DEDICATED spec-review session (see the
 project's prompts/spec-review.md) before implementation — offer to run it.
+Closing a milestone gets its own dedicated pass too (the sign-off ritual in
+the same file): write the summary, present it, and wait for the user's
+explicit sign-off before touching Status — don't fold this into a routine
+session-end and don't mark DONE on Claude's own say-so.
+
+**While slicing, don't guess past ambiguity.** If a milestone boundary,
+dependency, scope call, or "is this security-relevant" judgment is genuinely
+unclear, stop and ask the user before locking it in — flag it as a question,
+not a footnote.
 
 ### 5. Populate and close
 By the end of planning: CLAUDE.md carries the settled-decisions table,
