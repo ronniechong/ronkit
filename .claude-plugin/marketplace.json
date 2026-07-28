@@ -18,7 +18,7 @@
       "name": "documents",
       "source": "./plugins/documents",
       "description": "Skills for managing project documentation — planning docs, session handoffs, and related workflows",
-      "version": "0.5.0",
+      "version": "0.5.1",
       "keywords": ["documentation", "context-management", "milestones", "scaffolding", "planning", "ai-governance"]
     }
   ]
