@@ -101,7 +101,9 @@ not a footnote.
 By the end of planning: CLAUDE.md carries the settled-decisions table,
 security invariants, and verified external facts; STATE.md points at the true
 next action; JOURNAL.md has the session's entry (decisions + rationale +
-surprises + uncertainties); milestone 01 or 02 is drafted and awaiting review.
+surprises + uncertainties that are related to the project. Don't record any 
+unrelated notes or observations); milestone 01 or 02 is drafted and awaiting review.
+Keep the JOURNAL.md entry short and to the point as this will grow.
 Read the project's session-end ritual and follow it.
 
 ## Behaviours that make this skill worth invoking
