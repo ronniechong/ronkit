@@ -45,6 +45,17 @@ skill for the public tree, CLAUDE.md, and bridge file content once the
 milestone reaches implementation — do not generate them during the planning
 conversation itself, they belong to the milestone's own task list.
 
+As part of this milestone's interview, ask whether the public repo should
+also get an `AGENTS.md` (the https://agents.md/ cross-tool convention — lets
+Cursor, Copilot, Gemini CLI, etc. read the same project instructions Claude
+does, not just Claude Code). Default answer for portfolio/shareable projects
+is yes; a throwaway/private-only project may reasonably say no. If yes,
+CLAUDE.md becomes a thin `@AGENTS.md` import plus Claude-specific rules
+(Claude Code's documented interop pattern) rather than a standalone file —
+see `references/templates.md` §2-3 for both branches. AGENTS.md passes the
+same scrub gate as CLAUDE.md: host-neutral, no work-docs paths or private-repo
+existence, code-repo paths are fine.
+
 This still passes the critique gate and gets a real spec-review session like
 any other milestone — "we're building the repo" is not exempt from having
 acceptance criteria just because it produces no user-facing feature.
