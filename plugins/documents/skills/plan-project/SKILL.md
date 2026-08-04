@@ -1,6 +1,6 @@
 ---
 name: plan-project
-description: Turn a scaffolded project into an implementable plan through structured conversation — elaborate the idea, interrogate data sources and constraints, build a risk register, define milestones with pre-committed decision gates, and populate the working-docs files (CLAUDE.md decisions table, STATE.md, JOURNAL.md, milestone specs) as decisions land. Use when the user wants to plan, elaborate, validate, or pressure-test a project; asks "what are the risks/unknowns/oversights", "let's continue planning", "help me think this through", or wants milestone docs drafted or the working docs populated; or right after /documents:scaffold-project has run. Works on any project using the two-repo working-docs structure (a CLAUDE.local.md pointing at a work-docs directory is the tell), and can adopt projects that don't have it yet by suggesting /documents:scaffold-project first.
+description: Turn a scaffolded working-docs directory into an implementable plan through structured conversation — elaborate the idea, interrogate data sources and constraints, decide the tech stack, build a risk register, define milestones with pre-committed decision gates, and populate the working-docs files (CLAUDE.md decisions table, STATE.md, JOURNAL.md, milestone specs) as decisions land. This is also where the public code repo gets created, as one of the earliest milestones — scaffold-project deliberately does not create it. Use when the user wants to plan, elaborate, validate, or pressure-test a project; asks "what are the risks/unknowns/oversights", "let's continue planning", "help me think this through", "what stack should this use", or wants milestone docs drafted or the working docs populated; or right after /documents:scaffold-project has run. Works on any project using the two-repo working-docs structure (a CLAUDE.local.md pointing at a work-docs directory is the tell), and can adopt projects that don't have it yet by suggesting /documents:scaffold-project first.
 ---
 
 # plan
@@ -27,6 +27,27 @@ this skill fills them, decision by decision, **writing as it goes**.
   of PII and sensitive detail. Full versions live in the private docs.
 
 ## The planning arc (adapt order to the user; skip what's already done)
+
+### 0. Repo & stack — the earliest milestone, not a pre-req interview
+If the project only has a working-docs directory so far (scaffold-project's
+output — a `CLAUDE.local.md` bridge pointing at nothing, or no public repo at
+all), stack and the public code repo do NOT get decided in a quick upfront
+Q&A. They get decided as part of elaboration/interrogation below, then
+**captured as the project's first milestone** (typically Milestone 01,
+"Repo & stack setup" or folded into whatever M01 already covers if the first
+real milestone is small enough to absorb it) with its own acceptance
+criteria: stack chosen and recorded with rationale, public repo created at an
+agreed path, hygiene files (`.gitignore`, README stub) in the first commit,
+sanitized public CLAUDE.md written, `CLAUDE.local.md` bridge wired up and
+gitignored, private CLAUDE.md's "Two-repo structure" section updated from
+"not created yet" to the real path. Use `references/templates.md` in this
+skill for the public tree, CLAUDE.md, and bridge file content once the
+milestone reaches implementation — do not generate them during the planning
+conversation itself, they belong to the milestone's own task list.
+
+This still passes the critique gate and gets a real spec-review session like
+any other milestone — "we're building the repo" is not exempt from having
+acceptance criteria just because it produces no user-facing feature.
 
 ### 1. Elaborate
 Interview until the idea has edges: what it does, for whom, what "done" means,
@@ -98,13 +119,15 @@ unclear, stop and ask the user before locking it in — flag it as a question,
 not a footnote.
 
 ### 5. Populate and close
-By the end of planning: CLAUDE.md carries the settled-decisions table,
-security invariants, and verified external facts; STATE.md points at the true
-next action; JOURNAL.md has the session's entry (decisions + rationale +
-surprises + uncertainties that are related to the project. Don't record any 
-unrelated notes or observations); milestone 01 or 02 is drafted and awaiting review.
-Keep the JOURNAL.md entry short and to the point as this will grow.
-Read the project's session-end ritual and follow it.
+By the end of planning: CLAUDE.md carries the settled-decisions table
+(including stack, once decided), security invariants, and verified external
+facts; STATE.md points at the true next action; JOURNAL.md has the session's
+entry (decisions + rationale + surprises + uncertainties that are related to
+the project. Don't record any unrelated notes or observations); milestone 01
+(the repo/stack setup milestone, if this project hasn't got a code repo yet)
+or the next undrafted milestone is drafted and awaiting review. Keep the
+JOURNAL.md entry short and to the point as this will grow. Read the project's
+session-end ritual and follow it.
 
 ## Behaviours that make this skill worth invoking
 

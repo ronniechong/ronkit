@@ -1,107 +1,26 @@
-# templates.md — file templates for the two-repo structure
+# templates.md — file templates for the private working-docs tree
 
-Placeholders: `{{name}}` project slug, `{{purpose}}` one-liner, `{{public-path}}` public repo dir, `{{docs-path}}` working-docs dir (both from the interview — never assumed), `{{date}}` today. Adapt bracketed guidance notes and
-delete them from output; keep structure and headings.
+Placeholders: `{{name}}` project slug, `{{purpose}}` one-liner, `{{docs-path}}`
+working-docs dir (from the interview — never assumed), `{{date}}` today.
+Adapt bracketed guidance notes and delete them from output; keep structure
+and headings.
+
+This skill only generates the PRIVATE tree. The public code repo, its
+CLAUDE.md, and the `CLAUDE.local.md` bridge are generated later by
+`/documents:plan-project`'s repo-setup milestone — see that skill's own
+`references/templates.md` for those templates.
 
 Table of contents:
-1. Public repo tree & .gitignore
-2. Public CLAUDE.md
-3. CLAUDE.local.md (bridge)
-4. Private CLAUDE.md
-5. STATE.md
-6. JOURNAL.md
-7. Milestone template (with decision-gate table)
-8. prompts/spec-review.md (four rituals)
-9. ops/ starters
+1. Private CLAUDE.md
+2. STATE.md
+3. JOURNAL.md
+4. Milestone template (with decision-gate table)
+5. prompts/spec-review.md (four rituals)
+6. ops/ starters
 
 ---
 
-## 1. Public repo tree & .gitignore
-
-```
-{{public-path}}/
-├── CLAUDE.md            CLAUDE.local.md (gitignored)
-├── .gitignore           README.md
-├── src|service/  web/  deploy/        [adapt to stack]
-└── .github/workflows/
-```
-
-.gitignore minimum:
-```
-.env
-.env.*
-CLAUDE.local.md
-docker-compose.override.yml
-data/
-*.db
-.venv/
-__pycache__/
-node_modules/
-.DS_Store
-```
-
-## 2. Public CLAUDE.md (sanitized — passes the scrub gate by construction)
-
-```markdown
-# CLAUDE.md — {{name}}
-
-> Instructions for working in this repository. Read fully before changing code.
-
-## What this project is
-**{{name}}** — {{purpose}}
-[2-4 sentences: what it does, design priorities. Host-neutral.]
-
-## Repository layout
-[One line per top-level dir.]
-
-## Verified facts
-[Facts about external APIs/data sources a session must not rediscover.
-Only facts that are public or derivable from public sources.]
-
-## Settled technical decisions (do not re-litigate silently — flag first)
-| Decision | Choice | Revisit if |
-|---|---|---|
-[Technical decisions visible in code anyway. NOT: hosting, exposure,
-monitoring routing — those live privately.]
-
-## Security invariants (standing rules — a violation is never a refactor)
-[Numbered, host-neutral. Include at minimum: secrets via environment only;
-gitleaks pre-commit + CI; host-specific values from env or gitignored
-overrides, never hardcoded.]
-
-## Conventions
-[Stack, style, testing. Host-neutral.]
-
-## Behavioural rules for Claude in this repo
-1. Before implementing any task, raise at least one risk, gap, or
-   alternative; if genuinely fine, one sentence why.
-2. Never silently undo a settled decision above — flag and wait.
-3. Check every change against the security invariants.
-4. Additional project context may be provided via `CLAUDE.local.md`
-   (gitignored). If present, read it first and follow its instructions.
-```
-
-## 3. CLAUDE.local.md (bridge — NEVER commit; must be in .gitignore)
-
-```markdown
-# CLAUDE.local.md — NEVER COMMIT (gitignored)
-
-The working docs for this project live in `{{relative-path-to-work-docs}}`
-(private repo). That repo is the source of truth for planning and rituals.
-
-Before doing anything in this session:
-1. Read `<work-docs>/CLAUDE.md` (full context — extends and overrides this
-   repo's public CLAUDE.md where they differ).
-2. Read `<work-docs>/STATE.md`, the current milestone file, and the last two
-   `JOURNAL.md` entries.
-3. Follow the session rituals in `<work-docs>/prompts/`.
-
-Hard rule: anything WRITTEN into this public repo passes the scrub gate in the
-private CLAUDE.md — no host names/paths, no topology, no exposure/monitoring
-specifics, no PII, no reference to the private repo's existence.
-```
-
-## 4. Private CLAUDE.md (full context)
+## 1. Private CLAUDE.md (full context)
 
 ```markdown
 # CLAUDE.md — {{name}} working docs (PRIVATE)
@@ -111,13 +30,17 @@ specifics, no PII, no reference to the private repo's existence.
 ## What this project is
 [Full version, including the real learning/portfolio motivation.]
 
-## Two-repo structure (settled)
-- Public: `{{public-path}}` — code-only history; must NEVER reference this
-  repo. Its CLAUDE.md is the sanitized tier.
+## Two-repo structure (target — public side not created yet)
+- Public code repo: **not created yet.** Path, name, and stack get decided
+  during `/documents:plan-project` and the repo gets created there, as one
+  of its earliest milestones — do not assume a path or start writing code
+  before that milestone exists and is reviewed. Once created: code-only
+  history, sanitized CLAUDE.md, must NEVER reference this repo.
 - Private (this repo): `{{docs-path}}` — full context, rituals,
   `ops/` (host specifics, env templates, exposure/monitoring/backup notes).
-- Bridge: gitignored `CLAUDE.local.md` in the public repo points here.
-  Sensitivity flows ONE direction: private→public references allowed only.
+- Bridge: gitignored `CLAUDE.local.md`, created inside the public repo
+  alongside it, will point here. Sensitivity flows ONE direction:
+  private→public references allowed only.
 
 ## Scrub gate (standing rule)
 [Copy verbatim from SKILL.md "The scrub gate" section.]
@@ -137,27 +60,26 @@ nitpicking  6. Security/citizenship check on every spec and change
 project has a stated learning goal.]
 ```
 
-## 5. STATE.md
+## 2. STATE.md
 
 ```markdown
 # STATE.md — overwrite every session, keep under 15 lines
 
-**As of:** {{date}}, project kickstarted
+**As of:** {{date}}, project kickstarted (setup stage only)
 
 **What is true right now**
-- Repos initialised at {{public-path}} (public) and
-  {{docs-path}} (private). No production code exists.
-- Milestone 01 spec drafted — NOT yet reviewed.
+- Working-docs directory initialised at {{docs-path}} (private). No public
+  code repo exists yet, no milestones drafted — this was scaffolding only.
 
 **In flight**
 - Nothing.
 
 **Very next action**
-- Run prompts/spec-review.md against milestones/01-*.md in a dedicated
-  session. No implementation before that review.
+- Run `/documents:plan-project` to elaborate the idea, decide the stack, and
+  draft the first milestones (including creating the public code repo).
 ```
 
-## 6. JOURNAL.md
+## 3. JOURNAL.md
 
 ```markdown
 # JOURNAL.md — append-only. Newest at the bottom. Never edit old entries.
@@ -173,11 +95,12 @@ Entry format:
 ---
 
 ## Session 1 — {{date}} (kickstart)
-[First entry: what was scaffolded, initial decisions + rationale, Next per
-STATE.md, any Uncertain items from the kickstart conversation.]
+[First entry: that the working-docs tree was scaffolded (setup only, no code
+repo yet), any stack/repo preferences the user volunteered (carry forward as
+input to planning, don't act on them here), Next per STATE.md.]
 ```
 
-## 7. Milestone template — milestones/NN-slug.md
+## 4. Milestone template — milestones/NN-slug.md
 
 ```markdown
 # Milestone NN — Title
@@ -235,7 +158,7 @@ The last box is the user's call, not Claude's — Status only moves to DONE
 after the user has actually said so.)_
 ```
 
-## 8. prompts/spec-review.md — the four rituals
+## 5. prompts/spec-review.md — the four rituals
 
 ```markdown
 # Spec Review Prompt (its OWN session — no implementation allowed)
@@ -300,7 +223,7 @@ format, update milestone task markers. List anything uncertain under
 passed the scrub gate. Show the diffs.
 ```
 
-## 9. ops/ starters (private repo)
+## 6. ops/ starters (private repo)
 
 ops/README.md:
 ```markdown
