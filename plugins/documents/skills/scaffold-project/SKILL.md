@@ -30,6 +30,58 @@ private files it writes (STATE.md's "very next action", JOURNAL's Session 1)
 should say plainly that the code repo doesn't exist yet, so a later session
 doesn't assume otherwise.
 
+## The scrub gate
+
+Copied verbatim into every scaffolded project's private CLAUDE.md (see
+`references/templates.md` §1) — this is the canonical version, edit here,
+not per-project.
+
+Anything WRITTEN into the public repo — code, comments, commit messages,
+docs, config — passes this before it's committed: no host names or paths,
+no network topology, no exposure/tunnel/monitoring specifics, no PII, no
+reference to the private repo's existence, name, or file structure.
+
+This is not just about secrets. Two rules that are easy to violate by
+accident, without ever touching a credential:
+1. **No conversational name-attribution.** Never write "{{OwnerName}}
+   decided/asked/confirmed/chose..." in a public-repo comment or commit
+   message. The owner's name in project metadata (git author,
+   `pyproject.toml`/`package.json` author field) is fine and expected —
+   that's already structurally public. Narrating it through source comments
+   as a decision-log narrator is not. Attribute decisions to "the project"
+   or state them as settled fact instead.
+2. **No naming the private repo's files.** Never write "see JOURNAL", "see
+   STATE.md", "work-docs milestone doc", `ops/runbook.md`, or any other
+   pointer to the private repo's file/directory names from the public repo.
+   Same category as "no reference to the private repo's existence" above,
+   just easy to miss because it doesn't look like a secret.
+
+**Mechanical check — run before every commit to the public repo, not just
+when something "looks sensitive":**
+
+```
+cd <public-repo> && git add -A && git grep -niE \
+  "<hostwords>|<owner-first-name>|<owner-username>|ssh |tailscale|cloudflare tunnel|/Users/|/home/|password|api[_-]?key[[:space:]]*[:=]|token[[:space:]]*[:=]|@gmail|healthchecks\.io|journal|state\.md|work-docs|ops/runbook"
+gitleaks protect --staged --redact -v   # or: gitleaks detect --source . -v
+```
+
+Fill `<hostwords>` with anything host-specific this project ever names
+(e.g. `homeserver`, real IP ranges) and `<owner-first-name>`/
+`<owner-username>` once known — do this the first time the public repo is
+created, don't leave the placeholders in. `git add -A` first (or
+`--untracked`) — plain `git grep` silently skips untracked files, so a
+brand-new file can pass this check by never being looked at.
+
+Grep hits are not automatically bad (an env var *name* like
+`SOME_API_KEY` is fine) — read each one and confirm it's a name/pattern,
+not a value or a real host detail, before treating the check as passed.
+
+**This pattern list is not exhaustive by construction.** Don't treat "the
+grep passed" as proof nothing's wrong — it only catches what's in the
+list. Periodically re-audit (read actual file contents, not just grep) for
+categories the fixed pattern list doesn't cover, especially after a long
+run of sessions where comment style may have drifted.
+
 ## Step 1 — Interview (always, before generating anything)
 
 Ask these questions in one short batch, as a **plain chat message** — not

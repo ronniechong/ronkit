@@ -99,6 +99,11 @@ configured), and [any project-specific manual check].
    alternative; if genuinely fine as proposed, say so in one sentence.
 3. Never silently override a settled decision in this file — flag it and wait
    for a response instead of re-litigating unprompted.
+4. Comments/commit messages in this repo never conversationally attribute a
+   decision to the owner by name ("X decided/asked/confirmed...") and never
+   reference this project's private planning repo by name or file
+   (no "see JOURNAL", "STATE.md", "work-docs", "ops/runbook.md", etc.) —
+   see the private repo's scrub gate for the full rule and why.
 ```
 
 ## 3. Public CLAUDE.md (sanitized — passes the scrub gate by construction)
@@ -165,6 +170,11 @@ overrides, never hardcoded.]
 3. Check every change against the security invariants.
 4. Additional project context may be provided via `CLAUDE.local.md`
    (gitignored). If present, read it first and follow its instructions.
+5. Comments/commit messages in this repo never conversationally attribute a
+   decision to the owner by name ("X decided/asked/confirmed...") and never
+   reference this project's private planning repo by name or file
+   (no "see JOURNAL", "STATE.md", "work-docs", "ops/runbook.md", etc.) —
+   see the private repo's scrub gate for the full rule and why.
 ```
 
 ## 4. CLAUDE.local.md (bridge — NEVER commit; must be in .gitignore)

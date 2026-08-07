@@ -24,7 +24,12 @@ this skill fills them, decision by decision, **writing as it goes**.
   data exists, and a spike/metric to resolve it. Near-threshold results get an
   explicit decision, never a fudge.
 - **Scrub gate.** Anything destined for the public repo is host-neutral, free
-  of PII and sensitive detail. Full versions live in the private docs.
+  of PII and sensitive detail. Full versions live in the private docs. This
+  includes comments and commit messages, not just file content — never
+  conversationally attribute a decision to the owner by name, and never
+  reference the private repo's files (JOURNAL, STATE.md, work-docs,
+  ops/runbook.md) from the public repo. See scaffold-project's "The scrub
+  gate" section for the full rule and the mechanical check.
 
 ## The planning arc (adapt order to the user; skip what's already done)
 
