@@ -17,6 +17,7 @@ Plugins here are organized by **category**, not one-plugin-per-skill: each plugi
 |---|---|---|---|
 | `test` | 0.1.1 | Skills for testing and validating the ronkit marketplace itself | `/plugin install test@ronkit` |
 | `documents` | 0.7.0 | Skills for managing project documentation | `/plugin install documents@ronkit` |
+| `security` | 0.2.0 | Skills for information-risk security review | `/plugin install security@ronkit` |
 
 ### test
 
@@ -35,6 +36,10 @@ Plugins here are organized by **category**, not one-plugin-per-skill: each plugi
 - **`plan-project`** — turns a scaffolded working-docs directory into an implementable plan through structured conversation: elaborates the idea, interrogates data sources and constraints, decides the tech stack, builds a risk register, and defines milestones as standalone deliverables with decision gates and a security review where applicable. The public code repo also gets created here, as one of the earliest milestones, once stack and scope are actually settled — not upfront at scaffold time. That milestone also asks whether the repo should get an [AGENTS.md](https://agents.md/) (cross-tool instructions readable by Cursor, Copilot, Gemini CLI, etc., not just Claude Code) — if yes, `CLAUDE.md` becomes a thin `@AGENTS.md` import plus Claude-specific rules, per Claude Code's own documented interop pattern. Each milestone closes only after a dedicated verification pass and the user's explicit sign-off against a plain-language summary — never on Claude's say-so alone. Trigger it: `/documents:plan-project`, or ask to plan, elaborate, or pressure-test a project — typically run right after `scaffold-project`.
 
 - **`review-ai`** — reviews a technical document (system design, architecture, data schema, API spec — not a PRD) for AI usage, and if found, checks it against AI governance categories (data flow, vendor risk, security/guardrails, incident response, evaluation, plus escalation items like disclosure and regulatory mapping), producing a prioritized report for an engineering lead. Trigger it: `/documents:review-ai`, or ask to review a doc for AI governance or check for governance gaps. Read-only — never edits the source doc, gives a short summary in chat, and offers to write the full report to a file next to the doc reviewed.
+
+### security
+
+- **`audit-pii`** — audits a repo for information risk before it goes public: exposed secrets/credentials, PII, sensitive operational details (hostnames, internal repo references), and conversational comments that leak process or names. Produces a severity-ranked report and prioritized, phased remediation (secrets/PII first, then operational refs, then comment cleanup) — never edits or commits without explicit approval. Trigger it: `/security:audit-pii`, or ask to check a repo for secrets, PII, or sensitive leaks before pushing or making it public.
 
 ## Updating
 

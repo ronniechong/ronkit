@@ -36,6 +36,7 @@ Plugin skills are **always** namespaced as `/plugin-name:skill-name` on invocati
 Current categories:
 - `test` — skills for testing/validating the marketplace itself (e.g. `hello`)
 - `documents` — skills for project documentation workflows (e.g. `resume-later`)
+- `security` — skills for information-risk security review (e.g. `audit-pii`)
 
 When adding a new skill, put it in the category it fits (adding a `skills/<name>/` subdirectory to the existing plugin) rather than creating a new single-skill plugin. Only create a new category plugin when the skill doesn't fit any existing one.
 

@@ -1,0 +1,9 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
+  "name": "security",
+  "version": "0.2.0",
+  "description": "Skills for information-risk security review — PII, secrets, and leak audits before code goes public",
+  "author": { "name": "Ronnie" },
+  "repository": "https://github.com/ronniechong/ronkit",
+  "license": "MIT"
+}
