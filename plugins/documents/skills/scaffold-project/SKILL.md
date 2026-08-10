@@ -82,6 +82,21 @@ list. Periodically re-audit (read actual file contents, not just grep) for
 categories the fixed pattern list doesn't cover, especially after a long
 run of sessions where comment style may have drifted.
 
+## Comment scope
+
+Also copied verbatim into every scaffolded project's private CLAUDE.md
+(see `references/templates.md`) — canonical version, edit here.
+
+Code comments explain non-obvious **why** (a hidden constraint, a subtle
+invariant, a workaround for a specific bug) — not a running decision log.
+Default to no comment. Never write comments that narrate the session:
+no timestamps, no "changed from X to Y because...", no per-change
+justification trail, no restating what the diff already shows. That
+belongs in the commit message or the private JOURNAL, not in source.
+This applies project-wide, not to any one file or module — a single
+verbose file is evidence the rule has drifted, not an exception to scope
+it to.
+
 ## Step 1 — Interview (always, before generating anything)
 
 Ask these questions in one short batch, as a **plain chat message** — not

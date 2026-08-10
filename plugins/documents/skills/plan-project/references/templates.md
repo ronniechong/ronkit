@@ -104,6 +104,13 @@ configured), and [any project-specific manual check].
    reference this project's private planning repo by name or file
    (no "see JOURNAL", "STATE.md", "work-docs", "ops/runbook.md", etc.) —
    see the private repo's scrub gate for the full rule and why.
+5. Code comments explain non-obvious why only — a hidden constraint, a
+   subtle invariant, a workaround for a specific bug. Default to no
+   comment. Never write a running decision log in comments: no
+   timestamps, no "changed from X to Y because...", no per-change
+   justification trail. That belongs in the commit message or the
+   private JOURNAL, not in source — see the private repo's comment-scope
+   rule for the full rule and why.
 ```
 
 ## 3. Public CLAUDE.md (sanitized — passes the scrub gate by construction)
@@ -175,6 +182,13 @@ overrides, never hardcoded.]
    reference this project's private planning repo by name or file
    (no "see JOURNAL", "STATE.md", "work-docs", "ops/runbook.md", etc.) —
    see the private repo's scrub gate for the full rule and why.
+6. Code comments explain non-obvious why only — a hidden constraint, a
+   subtle invariant, a workaround for a specific bug. Default to no
+   comment. Never write a running decision log in comments: no
+   timestamps, no "changed from X to Y because...", no per-change
+   justification trail. That belongs in the commit message or the
+   private JOURNAL, not in source — see the private repo's comment-scope
+   rule for the full rule and why.
 ```
 
 ## 4. CLAUDE.local.md (bridge — NEVER commit; must be in .gitignore)
