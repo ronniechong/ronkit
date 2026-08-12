@@ -100,11 +100,13 @@ it to.
 ## Step 1 — Interview (always, before generating anything)
 
 Ask these questions in one short batch, as a **plain chat message** — not
-via a structured multi-choice tool. These are free text (names, a one-line
-description, an absolute path) with no fixed set of options, which a
-forced-choice tool can't represent and will reject outright. Do not guess
-paths. If the user answered some already in the conversation, only ask the
-gaps.
+via a structured multi-choice tool. **Do NOT call `AskUserQuestion` for
+this step.** These are free text (names, a one-line description, an
+absolute path) with no fixed set of options; `AskUserQuestion` requires
+2-4 mutually-exclusive options per question and rejects (`InputValidationError`)
+any question with fewer, so routing free-text questions through it fails
+before the user sees anything. Do not guess paths. If the user answered
+some already in the conversation, only ask the gaps.
 
 1. **Project name** (slug, lowercase kebab-case)
 2. **What is the project about?** (one or two sentences — becomes the purpose
