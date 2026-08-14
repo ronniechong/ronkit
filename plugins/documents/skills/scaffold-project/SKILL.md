@@ -141,7 +141,10 @@ context + two-repo section, noting the code repo doesn't exist yet + scrub
 gate), STATE.md (very next action = run `/documents:plan-project`), JOURNAL.md
 (Session 1 entry), milestones/ (template only — the first real milestone gets
 drafted during planning, not here), prompts/spec-review.md (four rituals),
-ops/ starters.
+ops/ starters, artifacts/ starter (research/findings/instructions that feed
+project and milestone definition — empty at this stage, populated during
+planning), issues/ starter (bug/incident log during and after development —
+empty at this stage).
 
 Do not generate a public tree, `CLAUDE.local.md`, skeleton code dirs, or
 `.gitignore` for a code repo — none of that exists until planning decides the
