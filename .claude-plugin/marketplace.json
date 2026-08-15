@@ -3,7 +3,7 @@
   "owner": { "name": "Ronnie" },
   "metadata": {
     "description": "Ronnie's Claude Code plugins — skills, commands, agents, and hooks",
-    "version": "0.4.2",
+    "version": "0.5.0",
     "pluginRoot": "./plugins"
   },
   "plugins": [
@@ -27,6 +27,13 @@
       "description": "Skills for information-risk security review — PII, secrets, and leak audits before code goes public",
       "version": "0.2.0",
       "keywords": ["security", "pii", "secrets", "audit", "information-risk"]
+    },
+    {
+      "name": "development",
+      "source": "./plugins/development",
+      "description": "Skills for setting up development tooling and repo infrastructure",
+      "version": "0.1.0",
+      "keywords": ["development", "github-actions", "ci", "setup", "doc-lapse"]
     }
   ]
 }

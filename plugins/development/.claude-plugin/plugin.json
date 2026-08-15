@@ -1,0 +1,9 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
+  "name": "development",
+  "version": "0.1.0",
+  "description": "Skills for setting up development tooling and repo infrastructure",
+  "author": { "name": "Ronnie" },
+  "repository": "https://github.com/ronniechong/ronkit",
+  "license": "MIT"
+}

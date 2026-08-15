@@ -18,6 +18,7 @@ Plugins here are organized by **category**, not one-plugin-per-skill: each plugi
 | `test` | 0.1.1 | Skills for testing and validating the ronkit marketplace itself | `/plugin install test@ronkit` |
 | `documents` | 0.9.0 | Skills for managing project documentation | `/plugin install documents@ronkit` |
 | `security` | 0.2.0 | Skills for information-risk security review | `/plugin install security@ronkit` |
+| `development` | 0.1.0 | Skills for setting up development tooling and repo infrastructure | `/plugin install development@ronkit` |
 
 ### test
 
@@ -40,6 +41,10 @@ Plugins here are organized by **category**, not one-plugin-per-skill: each plugi
 ### security
 
 - **`audit-pii`** — audits a repo for information risk before it goes public: exposed secrets/credentials, PII, sensitive operational details (hostnames, internal repo references), and conversational comments that leak process or names. Produces a severity-ranked report and prioritized, phased remediation (secrets/PII first, then operational refs, then comment cleanup) — never edits or commits without explicit approval. Trigger it: `/security:audit-pii`, or ask to check a repo for secrets, PII, or sensitive leaks before pushing or making it public.
+
+### development
+
+- **`setup-doclapse`** — generates a `.github/workflows/doc-lapse.yml` for a repo adopting [doc-lapse-action](https://github.com/ronniechong/doc-lapse-action) (a documentation-drift-detection GitHub Action). Asks for the target repo (absolute path), checks whether the Action is already configured somewhere in the repo's workflows and pauses with an abort/overwrite/write-fresh choice if so, shows doc-lapse-action's own compatibility table to inform the LLM provider/model choice, runs a two-tier config interview (essentials always, ~8 advanced inputs behind one opt-in gate), and pins the workflow to the latest published release tag (resolved live, no GitHub API/token required). Writes the file only — no git commands, no secret handling. Trigger it: `/development:setup-doclapse`, or ask to set up, add, or wire up doc-lapse-action for a repo.
 
 ## Updating
 
